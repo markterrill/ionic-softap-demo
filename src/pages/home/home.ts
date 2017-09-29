@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { SoftAPSetup } from "softap-setup-ts-demo";
+import { Config } from "./config";
 
 @Component({
   selector: 'page-home',
@@ -9,7 +10,6 @@ import { SoftAPSetup } from "softap-setup-ts-demo";
 export class HomePage {
 
   constructor(public navCtrl: NavController) {
-    console.log("test 1");
     var sap = new SoftAPSetup({ protocol: 'http', port: 4000, host: '127.0.0.1' });
     sap.deviceInfo(claim);
 
@@ -55,7 +55,7 @@ export class HomePage {
       console.log('-------');
       console.log('Scanned APs. Configuring device...');
 
-      var config = new Conf();
+      var config = new Config();
       sap.configure({
         ssid: config.get('ssid')
         , channel: config.get('channel') || 11
@@ -83,17 +83,6 @@ export class HomePage {
       console.log('Successfully sent connect request. Now wait for breathing cyan!');
 
     }
-    console.log("test 2");
   }
 
-}
-
-class Conf {
-  ssid:string = 'your ssid';
-  password:string = 'your p@$$vv0rD';
-  security:string = 'WPA2-ASK';
-
-  get(key) {
-    return this[key];
-  }
 }
